@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}校园笔记分享{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f6f8fa; }
+    .post-body img { max-width: 100%; }
+    .post-body pre { background: #f0f2f5; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    .post-body table { width: auto; margin-bottom: 1rem; }
+    .post-body table, .post-body th, .post-body td { border: 1px solid #dee2e6; padding: 6px 12px; border-collapse: collapse; }
+    .post-body blockquote { border-left: 4px solid #0d6efd; padding-left: 12px; color: #6c757d; }
+    .navbar-brand { font-weight: 700; }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('posts.index') }}">校园笔记</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('posts.index') }}">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('posts.tags') }}">标签</a></li>
+        {% if current_user %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('posts.my_posts') }}">我的文章</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('posts.create') }}">写笔记</a></li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        {% if current_user %}
+        <li class="nav-item"><span class="nav-link">你好，{{ current_user.username }}</span></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">退出</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">登录</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">注册</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show">{{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="container text-center text-muted my-5">
+  <small>基于 Flask · SQLAlchemy · Jinja2 · Bootstrap 5 · JWT 的校园笔记分享系统</small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

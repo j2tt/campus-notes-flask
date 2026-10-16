@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}登录 · 校园笔记分享{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-5">
+<div class="card shadow-sm"><div class="card-body">
+  <h3 class="card-title mb-3">登录</h3>
+  <form method="post">
+    <div class="mb-3"><label class="form-label">用户名</label>
+      <input name="username" class="form-control" required></div>
+    <div class="mb-3"><label class="form-label">密码</label>
+      <input name="password" type="password" class="form-control" required></div>
+    <button class="btn btn-primary w-100">登录</button>
+  </form>
+  <p class="mt-3 mb-0 text-muted">还没有账号？<a href="{{ url_for('auth.register') }}">立即注册</a></p>
+</div></div>
+</div></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+
+# Instance / local data (SQLite 本地库、上传文件等)
+instance/
+
+# Env & IDE
+.env
+.idea/
+.vscode/
+.DS_Store
+
+# 本地验证临时文件
+.verify/

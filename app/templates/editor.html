@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ '编辑笔记' if post else '写笔记' }} · 校园笔记分享{% endblock %}
+{% block content %}
+<div class="card shadow-sm"><div class="card-body">
+  <h3 class="mb-3">{{ '编辑笔记' if post else '写笔记' }}</h3>
+  <form method="post">
+    <div class="mb-3"><label class="form-label">标题</label>
+      <input name="title" class="form-control" value="{{ post.title if post else '' }}" required></div>
+    <div class="mb-3"><label class="form-label">正文（Markdown）</label>
+      <textarea name="body_md" class="form-control font-monospace" rows="14" required>{{ post.body_md if post else '' }}</textarea>
+      <div class="form-text">
+        支持 Markdown 语法：<code># 标题</code>、<code>**加粗**</code>、<code>`代码`</code>、
+        <code>```语言 代码块```</code>、<code>| 表格 |</code>、<code>&gt; 引用</code>、<code>- 列表</code> 等。
+      </div>
+    </div>
+    <div class="mb-3"><label class="form-label">标签（逗号分隔，如：Python, Flask）</label>
+      <input name="tags" class="form-control" value="{{ tags_str }}"></div>
+    <button class="btn btn-primary">{{ '保存修改' if post else '发布' }}</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('posts.index') }}">取消</a>
+  </form>
+</div></div>
+{% endblock %}
